@@ -21,13 +21,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set vars
         run: |
           if [[ $GITHUB_REF == 'refs/heads/prod' ]]; then
             echo "prod" > .workspace
           else
-          echo "staging" > .workspace
+            echo "staging" > .workspace
           fi
+
       - name: Push to ECR
         env:
           AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
@@ -39,7 +41,7 @@ jobs:
           docker build --compress -t ${{ vars.ECR_REPO_PROXY }}:$GITHUB_SHA proxy/
           docker push ${{ vars.ECR_REPO_PROXY }}:$GITHUB_SHA
 
-       - name: Terraform Apply
+      - name: Terraform Apply
         env:
           AWS_ACCESS_KEY_ID: ${{ vars.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
