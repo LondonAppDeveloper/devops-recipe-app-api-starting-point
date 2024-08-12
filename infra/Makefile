@@ -14,5 +14,8 @@ fmt:
 val:
 	docker compose run --rm terraform -chdir=setup validate
 
+plan:
+	docker compose run --rm terraform -chdir=setup plan
+
 apply:
 	docker compose run --rm terraform -chdir=setup apply
