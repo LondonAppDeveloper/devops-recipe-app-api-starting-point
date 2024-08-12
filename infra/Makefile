@@ -6,10 +6,13 @@ login:
 
 # Initialize the terraform 
 init:
-	docker compose run --rm terraform -chdir=deploy init
+	docker compose run --rm terraform -chdir=setup init -migrate-state
 
 fmt:
-	docker compose run --rm terraform -chdir=deploy fmt
+	docker compose run --rm terraform -chdir=setup fmt
 
 val:
-	docker compose run --rm terraform -chdir=deploy validate
+	docker compose run --rm terraform -chdir=setup validate
+
+apply:
+	docker compose run --rm terraform -chdir=setup apply
