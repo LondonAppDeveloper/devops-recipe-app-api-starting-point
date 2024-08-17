@@ -25,3 +25,11 @@ deploy-prod:
 # Deploys the application as development environment
 deploy-dev: 
 	docker compose up
+
+# Down the application in development environment
+down-dev:
+	docker compose down
+
+# Down the application in production environment
+down-prod:
+	docker compose -f docker-compose-deploy.yml down

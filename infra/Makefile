@@ -19,3 +19,9 @@ plan:
 
 apply:
 	docker compose run --rm terraform -chdir=setup apply
+
+output:
+	docker compose run --rm terraform -chdir=setup output
+
+secret:
+	docker compose run --rm terraform -chdir=setup output cd_user_access_key_secret
