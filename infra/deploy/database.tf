@@ -3,32 +3,31 @@
 ############
 
 resource "aws_db_subnet_group" "main" {
-	name = "${local.prefix}-main"
-	subnet_ids = [
-		aws_subnet.private_a.id,
-		aws_subnet.private_b.id
-	]
+  name = "${local.prefix}-main"
+  subnet_ids = [
+    aws_subnet.private_a.id,
+    aws_subnet.private_b.id
+  ]
 
-	tags = {
-		Name = "${local.prefix}-db-subnet-group"
-	}
+  tags = {
+    Name = "${local.prefix}-db-subnet-group"
+  }
 }
 
-
 resource "aws_security_group" "rds" {
-	description = "Allow access to the RDS database instance."
-	name = "${local.prefix}-rds-inbound-access"
-	vpc_id = aws_vpc.main.id
+  description = "Allow access to the RDS database instance."
+  name        = "${local.prefix}-rds-inbound-access"
+  vpc_id      = aws_vpc.main.id
 
-	ingress {
-		protocol = "tcp"
-		from_port = 5432
-		to_port = 5432
-	}
+  ingress {
+    protocol  = "tcp"
+    from_port = 5432
+    to_port   = 5432
+  }
 
-	tags = {
-    		Name = "${local.prefix}-db-security-group"
-  	}
+  tags = {
+    Name = "${local.prefix}-db-security-group"
+  }
 }
 
 resource "aws_db_instance" "main" {
