@@ -21,4 +21,97 @@ resource "aws_internet_gateway" "main" {
 }
 
 
+resource "aws_subnet" "public_a" {
+	vpc_id = aws_vpc.main.id
+	cidr_block = "10.1.0.0/24"
+	map_public_ip_on_launch = true
+	availability_zone = "${data.aws_region.current.name}"
+
+	tags = {
+		Name = "${local.prefix}-public-a"
+	}
+}
+
+resource "aws_route_table" "public_a" {
+	vpc_id = aws_vpc.main.id
+
+	tags = {
+		Name = "${local.prefix}-public-a"
+	}
+}
+
+resource "aws_route_table_association" "public_a" {
+	vpc_id = aws_vpc.main.id
+
+	route_table_id = aws_route_table.public_a.id
+
+	tags = {
+		Name = "${local.prefix}-public_a"
+	}
+}
+
+resource "aws_route" "public_internet_access_a" {
+	route_table_id = aws_route_table.public_a.id
+
+	gateway_id = aws_internet_gateway.main.id
+}
+
+resource "aws_subnet" "public_b" {
+	vpc_id = aws_vpc.main.id
+	cidr_block = "10.1.0.0/24"
+	map_public_ip_on_launch = true
+	availability_zone = "${data.aws_region.current.name}"
+
+	tags = {
+		Name = "${local.prefix}-public-b"
+	}
+}
+
+resource "aws_route_table" "public_b" {
+	vpc_id = aws_vpc.main.id
+
+	tags = {
+		Name = "${local.prefix}-public-b"
+	}
+}
+
+resource "aws_route_table_association" "public_b" {
+	vpc_id = aws_vpc.main.id
+
+	route_table_id = aws_route_table.public_b.id
+
+	tags = {
+		Name = "${local.prefix}-public_b"
+	}
+}
+
+resource "aws_route" "public_internet_access_b" {
+	route_table_id = aws_route_table.public_b.id
+
+	gateway_id = aws_internet_gateway.main.id
+}
+
+
+############################################
+# Private Subnets for internal access only #
+############################################
+resource "aws_subnet" "private_a" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.1.10.0/24"
+  availability_zone = "${data.aws_region.current.name}a"
+
+  tags = {
+    Name = "${local.prefix}-private-a"
+  }
+}
+
+resource "aws_subnet" "private_b" {
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = "10.1.11.0/24"
+  availability_zone = "${data.aws_region.current.name}b"
+
+  tags = {
+    Name = "${local.prefix}-private-b"
+  }
+}
 
