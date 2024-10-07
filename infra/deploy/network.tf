@@ -41,13 +41,9 @@ resource "aws_route_table" "public_a" {
 }
 
 resource "aws_route_table_association" "public_a" {
-	vpc_id = aws_vpc.main.id
-
+	subnet_id = aws_subnet.public_a.id
 	route_table_id = aws_route_table.public_a.id
 
-	tags = {
-		Name = "${local.prefix}-public_a"
-	}
 }
 
 resource "aws_route" "public_internet_access_a" {
@@ -76,13 +72,10 @@ resource "aws_route_table" "public_b" {
 }
 
 resource "aws_route_table_association" "public_b" {
-	vpc_id = aws_vpc.main.id
+	subnet_id = aws_subnet.public_b.id
 
 	route_table_id = aws_route_table.public_b.id
 
-	tags = {
-		Name = "${local.prefix}-public_b"
-	}
 }
 
 resource "aws_route" "public_internet_access_b" {
