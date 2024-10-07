@@ -2,7 +2,7 @@
 # Database #
 ############
 
-resource "aws_subnet_group" "main" {
+resource "aws_db_subnet_group" "main" {
 	name = "${local.prefix}-main"
 	subnet_ids = [
 		aws_subnet.private_a.id,
