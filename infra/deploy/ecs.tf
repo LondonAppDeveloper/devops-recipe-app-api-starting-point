@@ -11,7 +11,20 @@ resource "aws_iam_policy" "task_execution_role_policy" {
 
 resource "aws_iam_role" "task_execution_role" {
   name               = "${local.prefix}-task-execution-role"
-  assume_role_policy = jsonencode(file("./templates/ecs/task-assume-role-policy.json"))
+  assume_role_policy = jsonencode({
+	"Version": "2012-10-07",
+	"Statement" : [
+		{
+			"Sid": "",
+			"Effect": "Allow",
+			"Principal" {
+				"service": "ecs-task.amazonaws.com"
+			},
+			"Action": ["sts:AssumeRole"]
+		}
+
+	]
+     })
 }
 
 resource "aws_iam_role_policy_attachment" "task_execution_role" {
