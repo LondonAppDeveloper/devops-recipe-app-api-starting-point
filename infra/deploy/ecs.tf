@@ -12,7 +12,7 @@ resource "aws_iam_policy" "task_execution_role_policy" {
 resource "aws_iam_role" "task_execution_role" {
   name = "${local.prefix}-task-execution-role"
   assume_role_policy = jsonencode({
-    Version = "2012-10-07",
+    Version = "2012-10-17",
     Statement = [
       {
         Sid    = "",
@@ -35,7 +35,7 @@ resource "aws_iam_role_policy_attachment" "task_execution_role" {
 resource "aws_iam_role" "app_task" {
   name = "${local.prefix}-app-task"
   assume_role_policy = jsonencode({
-    Version = "2012-10-07",
+    Version = "2012-10-17",
     Statement = [
       {
         Sid    = "",
