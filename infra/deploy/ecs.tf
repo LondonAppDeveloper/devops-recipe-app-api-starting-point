@@ -10,21 +10,21 @@ resource "aws_iam_policy" "task_execution_role_policy" {
 }
 
 resource "aws_iam_role" "task_execution_role" {
-  name               = "${local.prefix}-task-execution-role"
+  name = "${local.prefix}-task-execution-role"
   assume_role_policy = jsonencode({
-        Version = "2012-10-07",
-        Statement = [
-                {
-                        Sid = "",
-                        Effect = "Allow",
-                        Principal = {
-                                Service = "ecs-task.amazonaws.com"
-                        },
-                        Action = "sts:AssumeRole"
-                }
+    Version = "2012-10-07",
+    Statement = [
+      {
+        Sid    = "",
+        Effect = "Allow",
+        Principal = {
+          Service = "ecs-task.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
 
-        ]
-     })
+    ]
+  })
 }
 
 resource "aws_iam_role_policy_attachment" "task_execution_role" {
@@ -33,21 +33,21 @@ resource "aws_iam_role_policy_attachment" "task_execution_role" {
 }
 
 resource "aws_iam_role" "app_task" {
-  name               = "${local.prefix}-app-task"
+  name = "${local.prefix}-app-task"
   assume_role_policy = jsonencode({
-        Version = "2012-10-07",
-        Statement = [
-                {
-                        Sid = "",
-                        Effect = "Allow",
-                        Principal = {
-                                Service = "ecs-task.amazonaws.com"
-                        },
-                        Action = "sts:AssumeRole"
-                }
+    Version = "2012-10-07",
+    Statement = [
+      {
+        Sid    = "",
+        Effect = "Allow",
+        Principal = {
+          Service = "ecs-task.amazonaws.com"
+        },
+        Action = "sts:AssumeRole"
+      }
 
-        ]
-     })
+    ]
+  })
 }
 
 resource "aws_iam_policy" "task_ssm_policy" {
