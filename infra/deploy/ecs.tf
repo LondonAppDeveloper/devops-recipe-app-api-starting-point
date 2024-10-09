@@ -210,19 +210,6 @@ resource "aws_security_group" "ecs_service" {
   }
 }
 
-data "aws_prefix_list" "s3" {
-  prefix_list_id = aws_vpc_endpoint.s3.prefix_list_id
-}
-
-resource "aws_security_group_rule" "permit_tls_egress_to_s3_gateway_endpoints" {
-  description       = "Permit TLS egress from ${aws_security_group.ecs_service.name} security group to S3 VPC Gateway Endpoint IP addresses."
-  from_port         = 443
-  protocol          = "tcp"
-  security_group_id = aws_security_group.ecs_service.id
-  to_port           = 443
-  type              = "egress"
-  cidr_blocks       = data.aws_prefix_list.s3.cidr_blocks
-}
 
 resource "aws_ecs_service" "api" {
   name                   = "${local.prefix}-api"
@@ -235,8 +222,8 @@ resource "aws_ecs_service" "api" {
 
   network_configuration {
     subnets = [
-      aws_subnet.public_a.id,
-      aws_subnet.public_b.id
+      aws_subnet.private_a.id,
+      aws_subnet.private_b.id
     ]
 
     security_groups = [aws_security_group.ecs_service.id]
