@@ -50,9 +50,9 @@ resource "aws_lb_target_group" "api" {
   port        = 8000
 
 
-  health_check {
-    path = "/api/health-check/"
-  }
+  #health_check {
+  #  path = "/api/health-check/"
+  #}
 }
 
 resource "aws_lb_listener" "api" {
