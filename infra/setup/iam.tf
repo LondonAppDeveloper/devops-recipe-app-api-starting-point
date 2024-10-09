@@ -335,3 +335,8 @@ resource "aws_iam_policy" "elb" {
   policy      = data.aws_iam_policy_document.elb.json
 }
 
+resource "aws_iam_user_policy_attachment" "elb" {
+  user       = aws_iam_user.cd.name
+  policy_arn = aws_iam_policy.elb.arn
+}
+
