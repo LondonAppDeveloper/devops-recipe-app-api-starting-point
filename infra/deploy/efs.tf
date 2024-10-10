@@ -24,7 +24,7 @@ resource "aws_security_group" "efs" {
 
 resource "aws_efs_mount_target" "media_a" {
   file_system_id = aws_efs_file_system.media.id
-  subnet_id      = aws_security_group.efs.id
+  subnet_id      = aws_subnet.private_a.id
 
   security_groups = [
     aws_security_group.efs.id
