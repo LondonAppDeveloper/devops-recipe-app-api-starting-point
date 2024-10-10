@@ -35,3 +35,19 @@ variable "django_secret_key" {
 }
 
 
+variable "dns_zone_name" {
+  description = "Domain name"
+  default     = "somethingnooneelsechosenbefore.com"
+}
+
+variable "subdomain" {
+  description = "Subdomain for each environment"
+  type        = map(string)
+
+  default = {
+    prod    = "api"
+    staging = "api.staging"
+    dev     = "api.dev"
+  }
+}
+
