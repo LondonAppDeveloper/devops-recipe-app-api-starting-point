@@ -6,7 +6,8 @@ services:
       context: .
     restart: always
     volumes:
-      - static-data:/vol/web
+      - static-data:/vol/web/static
+      - media-data:/vol/web/media
     environment:
       - DB_HOST=db
       - DB_NAME=${DB_NAME}
@@ -34,10 +35,12 @@ services:
     depends_on:
       - app
     ports:
-      - 80:8000
+      - 81:8000
     volumes:
       - static-data:/vol/static
+      - media-data:/vol/media
 
 volumes:
   postgres-data:
   static-data:
+  media-data:
